@@ -20,5 +20,7 @@ import page.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', page.views.home, name='home'),
-    path('post/<int:post_id>', page.views.detail, name='detail'),
+    path('post/<int:post_id>/', page.views.post_detail, name='post_detail'),
+    path('post/new/', page.views.post_new, name='post_new'),
+    path('post/create/', page.views.post_create, name='post_create'),
 ]
