@@ -2,12 +2,15 @@
 
 {% block content %}
 {% for post in posts.all %}
-
-<div class="container">
-    <h1>{{post.title}}</h1>
-    <p>{{post.pub_date}}</p>
-    <p>{{post.summary}}</p>
-    <a href="{% url 'detail' post.id %}">더 자세히 보기</a>
+<br>
+<div class="card">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h3 class="card-title">{{post.title}}</h3>
+    <p class="card-text">{{post.pub_date}}</p>
+    <p class="card-text lead">{{post.summary}}</p>
+    <p class="text-right"><a href="{% url 'detail' post.id %}" class="btn btn-primary">자세히..</a></p>
+  </div>
 </div>
 <br>
 {% endfor %}
