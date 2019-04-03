@@ -3,10 +3,20 @@
 {% block content %}
 
 <div class="container">
-  <h1>{{detail.title}}</h1>
-  <p>{{detail.pub_date}}</p>
-  <p>{{detail.content}}</p>
-  <a href="{% url 'home' %}">이전으로 돌아가기</a>
+  <div class="row">
+    <div class="col-md-6" style="float: none; margin: 0 auto;">
+      <div class="card">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <hr>
+          <h1>{{detail.title}}</h1>
+          <p>{{detail.pub_date}}</p>
+          <p>{{detail.content}}</p>
+          <p class="text-right"><a href="{% url 'home' %}" class="btn btn-primary">홈으로</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
