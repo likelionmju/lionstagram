@@ -2,7 +2,8 @@
 
 {% block content %}
 
-{% for post in posts.all %}
+<!-- post object list in reverse order -->
+{% for post in posts.all reversed %}
 <br>
 <div class="card">
   <img src="..." class="card-img-top" alt="...">
