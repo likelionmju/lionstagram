@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<!-- post object list in reverse order -->
-{% for post in posts.all reversed %}
-<br>
-<div class="card">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h3 class="card-title">{{post.title}}</h3>
-    <p class="card-text">{{post.pub_date}}</p>
-    <p class="card-text lead">{{post.summary}}</p>
-    <p class="text-right"><a href="{% url 'post_detail' post.id %}" class="btn btn-primary">자세히..</a></p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6" style="float: none; margin: 0 auto;">
+      <!-- post object list in reverse order -->
+      {% for post in posts.all reversed %}
+      <br>
+      <div class="card">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h3 class="card-title">{{post.title}}</h3>
+          <p class="card-text">{{post.pub_date}}</p>
+          <p class="card-text lead">{{post.summary}}</p>
+          <p class="text-right"><a href="{% url 'post_detail' post.id %}" class="btn btn-primary">자세히..</a></p>
+        </div>
+      </div>
+      <br>
+      {% endfor %}
+    </div>
   </div>
-
 </div>
-<br>
-{% endfor %}
 {% endblock %}
