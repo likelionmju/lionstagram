@@ -8,10 +8,17 @@
       <br>
       <div class="card">
         <div class="col-md-10" style="float: none; margin: 0 auto;">
-          <form action="{% url 'post_create' %}" method="POST">
+          <form action="{% url 'post_create' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <br>
             <!-- 사진 업로드 -->
+            <div class="form-group">
+              <label for="image">
+                <h4>사진 업로드</h4>
+              </label>
+              <br>
+              <input type="file" name="image" id="image">
+            </div>
             <hr>
             <div class="form-group">
               <label for="title">

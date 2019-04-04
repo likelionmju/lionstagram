@@ -4,6 +4,7 @@ from django.db import models
 class Post(models.Model):
     title = models.CharField(max_length=200)
     pub_date = models.DateTimeField('publish')
+    image = models.ImageField(upload_to='images/', blank=True)
     content = models.TextField()
 
     def __str__(self):

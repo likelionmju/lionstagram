@@ -123,3 +123,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'page', 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Media files
+
+MEDIA_URL = '/madia/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

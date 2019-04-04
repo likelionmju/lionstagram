@@ -9,7 +9,7 @@
       {% for post in posts.all reversed %}
       <br>
       <div class="card">
-        <img src="{% static 'page/images/mju_logo.gif' %}" class="card-img-top" alt="...">
+        <img src="{{post.image.url}}" class="card-img-top" alt="...">
         <div class="card-body">
           <hr>
           <h3 class="card-title">{{post.title}}</h3>
