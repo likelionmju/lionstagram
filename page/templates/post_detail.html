@@ -16,48 +16,49 @@
         {% endif %}" class="card-img-top" alt="...">
         <div class="card-body">
           <hr>
-          <h2 class="card-title">{{post.title}}</h2>
-          <p class="card-text">{{post.pub_date}}</p>
+          <h3 class="card-title">{{post.title}}</h3>
           <p class="card-text"><strong>{{post.author}}</strong> {{post.content}}</p>
-          <p class="text-right">
-            <hr>
-            <!-- 댓글 입력 폼 -->
-            <form method="POST" action="{% url 'comment_new' post.id %}">
-              {% csrf_token %}
-              <div class="row">
-                <div class="col-sm-10">
-                  <input type="text" name="comment" id="comment" class="form-control" placeholder="댓글을 입력해주세요">
-                </div>
-                <div class="col-sm-2">
-                  <input class="btn btn-outline-primary" type="submit" value="제출하기">
-                </div>
+          <small class="card-text" style="color:gray;">{{post.pub_date}}</small>
+          <hr>
+          <!-- 댓글 입력 폼 -->
+          <form method="POST" action="{% url 'comment_new' post.id %}">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-9">
+                <input type="text" name="comment" id="comment" class="form-control" placeholder="댓글 달기...">
               </div>
-            </form>
-            <br>
-            <!-- 댓글 -->
-            {% for comment in post.comments.all %}
-            <div class="comment">
-              <div class="row">
-                <div class="col-sm-10">
-                  <p><strong>{{comment.author}}</strong> {{comment.content}}</p>
-                </div>
-                <div class="col-sm-2">
-                  <a class="btn-sm float-right" href="{% url 'comment_delete' post.id comment.id %}">
-                    <i class="fas fa-minus"></i>
-                  </a>
-                </div>
+              <div class="col-2">
+                <input class="btn btn-outline-info" type="submit" value="댓글 달기">
               </div>
             </div>
-            {% empty %}
-            <p>No comments here yet :(</p>
-            {% endfor %}
-            <!--작성자와 유저가 같은 경우에만 수정&삭제 표시-->
-            {% if user.is_authenticated and user.username == post.author.username %}
-            <a href="{% url 'post_edit' post.id %}" class="btn btn-danger">수정</a>
-            <a href="{% url 'post_delete' post.id %}" class="btn btn-info">삭제</a>
-            {% endif %}
-            <p class="text-right"><a href="{% url 'home' %}" class="btn btn-primary">홈으로</a></p>
+          </form>
+          <br>
+          <!-- 댓글 -->
+          {% for comment in post.comments.all %}
+          <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
+          <a class="btn-sm float-right" href="{% url 'comment_delete' post.id comment.id %}">
+            <i class="fas fa-minus"></i>
+          </a>
+          <br>
+          {% empty %}
+          <label style="color:gray;">아직 댓글이 없습니다</label>
+          {% endfor %}
 
+          <!-- 작성자와 유저가 같은 경우에만 수정&삭제 표시 -->
+          <div class="text-right">
+            {% if user.is_authenticated and user.username == post.author.username %}
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                설정 <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="{% url 'post_edit' post.id %}" class="dropdown-item">수정</a></li>
+                <li><a href="{% url 'post_delete' post.id %}" class="dropdown-item">삭제</a></li>
+              </ul>
+            </div>
+            {% endif %}
+            <a href="{% url 'home' %}" class="btn btn-primary">홈으로</a>
+          </div>
         </div>
       </div>
     </div>
