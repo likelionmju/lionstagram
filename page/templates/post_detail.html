@@ -21,6 +21,7 @@
           <p class="card-text">{{post.pub_date}}</p>
           <p class="card-text"><strong>{{post.author}}</strong> {{post.content}}</p>
           <p class="text-right">
+            <!--작성자와 유저가 같은 경우에만 수정&삭제 표시-->
             {% if user.is_authenticated and user.username == post.author.username %}
             <a href="{% url 'post_edit' post.id %}" class="btn btn-danger">수정</a>
             <a href="{% url 'post_delete' post.id %}" class="btn btn-info">삭제</a>

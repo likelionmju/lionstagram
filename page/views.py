@@ -12,6 +12,7 @@ def post_detail(request, post_id):
     return render(request, 'post_detail.html', {'post':post})
 
 def post_new(request):
+    # 작성 폼 제출
     if request.method == 'POST':
         post = Post()
         post.title = request.POST['title']
@@ -23,6 +24,7 @@ def post_new(request):
         post.pub_date = timezone.datetime.now()
         post.save()
         return redirect('/post/'+str(post.id))
+    # 작성 폼
     else:
         return render(request, 'post_new.html')
 
@@ -36,7 +38,7 @@ def post_delete(request, post_id):
 
 def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    # 수정 제출
+    # 수정 폼 제출
     if request.method == 'POST':
         post.title = request.POST['title']
         post.content = request.POST['content']
@@ -46,6 +48,7 @@ def post_edit(request, post_id):
         post.save()
         return redirect('/post/'+str(post.id))
     else:
+    # 수정 폼
         if post.author == request.user:
             return render(request, 'post_edit.html', {'post':post})
         else:
