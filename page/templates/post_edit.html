@@ -3,40 +3,38 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6 center-align">
+  <div class="row">
+    <div class="col-md-6 center-align">
+      <br>
+      <div class="card">
+        <div class="col-md-10 center-align">
+          <br>
+          <h1 class="text-center">게시물 수정</h1>
+          <form action="{% url 'post_edit' post.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
             <br>
-            <div class="card">
-                <div class="col-md-10 center-align">
-                    <br>
-                    <h1 class="text-center">게시물 수정</h1>
-                    <form action="{% url 'post_edit' post.id %}" method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <br>
-                        <div class="form-group">
-                            <label for="title">
-                                <h4>제목</h4>
-                            </label>
-                            <input type="text" name="title" id="title" class="form-control" placeholder="제목을 입력해주세요"
-                                value="{{post.title}}">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <label for="content">
-                                <h4>내용</h4>
-                            </label>
-                            <textarea class="form-control" name="content" id="content" rows="7"
-                                placeholder="내용을 입력해주세요">{{post.content}}</textarea>
-                        </div>
-                        <br>
-                        <div class="form-group text-center">
-                            <input class="btn btn-outline-primary" type="submit" value="제출하기">
-                        </div>
-                    </form>
-                </div>
+            <div class="form-group">
+              <label for="title">
+                <h4>제목</h4>
+              </label>
+              <input type="text" name="title" id="title" class="form-control" placeholder="제목을 입력해주세요" value="{{post.title}}">
             </div>
+            <br>
+            <div class="form-group">
+              <label for="content">
+                <h4>내용</h4>
+              </label>
+              <textarea class="form-control" name="content" id="content" rows="7" placeholder="내용을 입력해주세요">{{post.content}}</textarea>
+            </div>
+            <br>
+            <div class="form-group text-center">
+              <input class="btn btn-outline-info" type="submit" value="수정하기">
+            </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 {% endblock %}
