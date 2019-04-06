@@ -8,7 +8,7 @@
       <br>
       <div class="card">
         <div class="col-md-10" style="float: none; margin: 0 auto;">
-          <form action="{% url 'post_create' %}" method="POST" enctype="multipart/form-data">
+          <form action="{% url 'post_new' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <br>
             <!-- 사진 업로드 -->

@@ -9,7 +9,13 @@
       {% for post in posts.all reversed %}
       <br>
       <div class="card">
-        <img src="{{post.image.url}}" class="card-img-top" alt="...">
+        <img src="
+        {% if post.image %}
+        {{post.image.url}}
+        {% else %}
+        {% static 'page/images/thumbnail.jpg' %}
+        {% endif %}"
+        class="card-img-top" alt="...">
         <div class="card-body">
           <hr>
           <h3 class="card-title">{{post.title}}</h3>

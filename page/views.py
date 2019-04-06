@@ -13,13 +13,14 @@ def post_detail(request, post_id):
     return render(request, 'post_detail.html', {'detail':detail})
 
 def post_new(request):
-    return render(request, 'post_new.html')
-
-def post_create(request):
-    post = Post()
-    post.title = request.POST['title']
-    post.content = request.POST['content']
-    post.image = request.FILES['image']
-    post.pub_date = timezone.datetime.now()
-    post.save()
-    return redirect('/post/'+str(post.id))
+    if request.method == 'POST':
+        post = Post()
+        post.title = request.POST['title']
+        post.content = request.POST['content']
+        post.image = request.FILES['image']
+        post.pub_date = timezone.datetime.now()
+        post.save()
+        return redirect('/post/'+str(post.id))
+    else:
+        return render(request, 'post_new.html')
+    
