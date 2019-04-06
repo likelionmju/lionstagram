@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'page.apps.PageConfig',
     'account.apps.AccountConfig',
+    'comment.apps.CommentConfig',
 ]
 
 MIDDLEWARE = [

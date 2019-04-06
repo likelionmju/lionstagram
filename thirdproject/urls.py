@@ -25,4 +25,5 @@ urlpatterns = [
     path('', page.views.home, name='home'),
     path('post/', include('page.urls')),
     path('account/', include('account.urls')),
+    path('comment/', include('comment.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
