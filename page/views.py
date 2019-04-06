@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Post
-from .forms import PostForm
 
 # Create your views here.
 def home(request):
@@ -16,6 +15,7 @@ def post_new(request):
     if request.method == 'POST':
         post = Post()
         post.title = request.POST['title']
+        post.author = request.user
         post.content = request.POST['content']
         # image 파일이 있으면 post 객체에 저장
         if 'image' in request.FILES:
