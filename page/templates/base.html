@@ -38,8 +38,8 @@
             계정
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{% url 'register' %}">회원가입</a>
             {% if not user.is_authenticated %}
+            <a class="dropdown-item" href="{% url 'register' %}">회원가입</a>
             <a class="dropdown-item" href="{% url 'login' %}">로그인</a>
             {% endif %}
             {% if user.is_authenticated %}
