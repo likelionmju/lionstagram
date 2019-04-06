@@ -18,9 +18,10 @@
         <div class="card-body">
           <hr>
           <h3 class="card-title">{{post.title}}</h3>
-          <p class="card-text">{{post.pub_date}}</p>
           <p class="card-text"><strong>{{post.author}}</strong> {{post.summary}}
-            <a href="{% url 'post_detail' post.id %}" style="color:gray;">...더보기</a></p>
+            <a href="{% url 'post_detail' post.id %}" style="color:gray;">...더보기</a>
+          </p>
+          <p><small class="card-text" style="color:gray;">{{post.pub_date}}</small></p>
           {% for comment in post.comments.all %}
           <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
           <br>
