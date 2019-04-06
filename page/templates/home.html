@@ -14,14 +14,19 @@
         {{post.image.url}}
         {% else %}
         {% static 'page/images/thumbnail.jpg' %}
-        {% endif %}"
-        class="card-img-top" alt="...">
+        {% endif %}" class="card-img-top" alt="...">
         <div class="card-body">
           <hr>
           <h3 class="card-title">{{post.title}}</h3>
           <p class="card-text">{{post.pub_date}}</p>
           <p class="card-text"><strong>{{post.author}}</strong> {{post.summary}}
             <a href="{% url 'post_detail' post.id %}" style="color:gray;">...더보기</a></p>
+          {% for comment in post.comments.all %}
+          <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
+          <br>
+          {% empty %}
+          <label style="color:gray;">아직 댓글이 없습니다</label>
+          {% endfor %}
         </div>
       </div>
       <br>
