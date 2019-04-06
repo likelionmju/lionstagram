@@ -20,7 +20,7 @@
           <hr>
           <h3 class="card-title">{{post.title}}</h3>
           <p class="card-text">{{post.pub_date}}</p>
-          <p class="card-text">{{post.summary}}</p>
+          <p class="card-text"><strong>{{post.author}}</strong> {{post.summary}}</p>
           <p class="text-right"><a href="{% url 'post_detail' post.id %}" class="btn btn-primary">자세히..</a></p>
         </div>
       </div>
