@@ -17,7 +17,9 @@ def post_new(request):
         post = Post()
         post.title = request.POST['title']
         post.content = request.POST['content']
-        post.image = request.FILES['image']
+        # image 파일이 있으면 post 객체에 저장
+        if 'image' in request.FILES:
+            post.image = request.FILES['image']
         post.pub_date = timezone.datetime.now()
         post.save()
         return redirect('/post/'+str(post.id))
