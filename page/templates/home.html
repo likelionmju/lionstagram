@@ -10,33 +10,53 @@
       <br>
       <div class="card">
         <div class="card-body">
-          <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+          <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25"
+            class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
           <hr>
         </div>
-        <img src="
-        {% if post.image %}
-        {{post.image.url}}
-        {% else %}
-        {% static 'page/images/thumbnail.jpg' %}
-        {% endif %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <hr>
-          <h3 class="card-title">{{post.title}}</h3>
-          <p class="card-text"><strong>{{post.author}}</strong> {{post.summary}}
-            <a href="{% url 'post_detail' post.id %}" style="color:gray;">...더보기</a>
-          </p>
-          <p><small class="card-text" style="color:gray;">{{post.pub_date}}</small></p>
-          {% for comment in post.comments.all %}
-          <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
-          <br>
-          {% empty %}
-          <label style="color:gray;">아직 댓글이 없습니다</label>
-          {% endfor %}
-        </div>
+        <a href="{% url 'post_detail' post.id %}">
+          {% if post.image %}
+          <img src="{{post.image.url}}" class="card-img-top" alt="...">
+          {% else %}
+          <img src="{% static 'page/images/thumbnail.jpg' %}" class="card-img-top" alt="...">
+          {% endif %}
+          <div class="card-body">
+        </a>
+
+        <hr>
+        <h3 class="card-title">{{post.title}}</h3>
+        <p class="card-text"><strong>{{post.author}}</strong>
+          <!--post summary-->
+          {% if post.content|length > 100 %}
+          <span id="summary">{{post.summary}}</span>
+          <span id="content" style="display:none">{{post.content}}</span>
+          <a href="javascript:more()" id="more" style="color:gray;">...더보기</a>
+          {% else %}
+          {{post.content}}
+          {% endif %}
+        </p>
+        <p><small class="card-text" style="color:gray;">{{post.pub_date}}</small></p>
+        {% for comment in post.comments.all %}
+        <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
+        <br>
+        {% empty %}
+        <label style="color:gray;">아직 댓글이 없습니다</label>
+        {% endfor %}
       </div>
-      <br>
-      {% endfor %}
     </div>
+    <br>
+    {% endfor %}
   </div>
 </div>
+</div>
+
+<!--Expand Content JS-->
+<script>
+  function more() {
+    var content = document.getElementById('content').textContent;
+    document.getElementById('summary').innerHTML = content; // summary change to content
+    document.getElementById('more').style.display = "none"; // more button hide
+  }
+</script>
+
 {% endblock %}
