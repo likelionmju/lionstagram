@@ -8,8 +8,9 @@
     <div class="col-md-6 center-align">
       <br>
       <div class="card">
-        <div class="card-header">
-          <strong>{{post.author}}</strong>
+        <div class="card-body">
+          <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+          <hr>
         </div>
         <img src="
         {% if post.image %}
