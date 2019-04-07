@@ -9,6 +9,9 @@
       {% for post in posts.all reversed %}
       <br>
       <div class="card">
+        <div class="card-header">
+          <strong>{{post.author}}</strong>
+        </div>
         <img src="
         {% if post.image %}
         {{post.image.url}}
