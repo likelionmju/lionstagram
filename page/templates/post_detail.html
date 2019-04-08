@@ -9,8 +9,9 @@
       <br>
       <div class="card">
         <div class="card-body">
-          <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top">
-          <a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong style="padding-left:10px;">{{post.author}}</strong></a>
+          <a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;">
+            <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+          </a>
           {% if user.is_authenticated and user.username == post.author.username %}
           <div class="btn-group" style="float:right;">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
