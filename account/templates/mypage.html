@@ -2,32 +2,31 @@
 {% load static %}
 
 {% block content %}
+<br>
+<br>
 <div class="container">
-    <br>
-
-    <div class="row">
-        <div class="col-md-4" align = "center">
-            <img src="{% static 'page/images/lion_profile.jpg' %}" width="150" height="150" alt="">
-        </div>
-        <div class="col-md-8">
-            <h1>{{user.username}}</h1>
-            <p>게시물 <strong>{{posts.count}}</strong></p>
-        </div>
+  <div class="row">
+    <div class="col-md-4" align="center">
+      <img src="{% static 'page/images/lion_profile.jpg' %}" width="150" height="150" alt="">
     </div>
-    <br>
-    <hr>
-    <div class="row">
-        {% for post in posts.all %}
-        <div class="col-md-4 padding:20">
-        {% if post.image %}
-            <img src="{{post.image.url}}" width="293" height="293" alt="...">
-        {% else %}
-            <img src="{% static 'page/images/thumbnail.jpg' %}" width="293" height="293" alt="...">
-        {% endif %}
-        </div>
-        {% endfor %}
+    <div class="col-md-8">
+      <h2>{{user.username}}</h2>
+      <p>게시물 <strong>{{posts.count}}</strong></p>
     </div>
-
+  </div>
+  <br>
+  <hr>
+  <div class="row">
+    {% for post in posts.all %}
+    <div class="col-md-4 text-center" style="padding-bottom:20px;">
+      {% if post.image %}
+      <a href="{% url 'post_detail' post.id %}"><img src="{{post.image.url}}" width="293px" height="293px" alt="..." class="img-thumbnail"></a>
+      {% else %}
+      <a href="{% url 'post_detail' post.id %}"><img src="{% static 'page/images/thumbnail.jpg' %}" width="293px" height="293px" alt="..." class="img-thumbnail"></a>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}
