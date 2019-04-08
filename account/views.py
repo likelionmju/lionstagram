@@ -38,4 +38,4 @@ def mypage(request, author_id):
     user = User.objects.get(username=author_id)
     # 해당 유저의 포스트만 불러오기
     posts = Post.objects.filter(author=user)
-    return render(request, 'mypage.html', {'posts':posts})
+    return render(request, 'mypage.html', {'posts':posts, 'user':user})

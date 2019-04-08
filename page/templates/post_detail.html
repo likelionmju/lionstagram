@@ -9,7 +9,8 @@
       <br>
       <div class="card">
         <div class="card-body">
-          <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+          <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top">
+          <a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong style="padding-left:10px;">{{post.author}}</strong></a>
           {% if user.is_authenticated and user.username == post.author.username %}
           <div class="btn-group" style="float:right;">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -35,7 +36,7 @@
             <a href="/"><img src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px"></a>
             <a href="#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..." style="width:30px;height:30px;"></a>
           </div>
-          <p class="card-text"><strong>{{post.author}}</strong> {{post.content}}</p>
+          <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a> {{post.content}}</p>
           <small class="card-text" style="color:gray;">{{post.pub_date}}</small>
           <hr>
           <!-- 댓글 입력 폼 -->
