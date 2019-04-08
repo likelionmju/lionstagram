@@ -15,7 +15,6 @@ def post_new(request):
     # 작성 폼 제출
     if request.method == 'POST':
         post = Post()
-        post.title = request.POST['title']
         post.author = request.user
         post.content = request.POST['content']
         # image 파일이 있으면 post 객체에 저장
@@ -40,7 +39,6 @@ def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     # 수정 폼 제출
     if request.method == 'POST':
-        post.title = request.POST['title']
         post.content = request.POST['content']
         # image 파일이 있으면 post 객체에 저장
         if 'image' in request.FILES:
