@@ -57,7 +57,7 @@
         <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
         <br>
         {% empty %}
-        <label style="color:gray;">아직 댓글이 없습니다</label>
+        <a href="{% url 'post_detail' post.id %}#comment"><label style="text-decoration: none;color:gray;">아직 댓글이 없습니다</label></a>
         {% endfor %}
       </div>
     </div>
