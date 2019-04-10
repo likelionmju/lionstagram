@@ -9,10 +9,10 @@
       {% for post in posts.all reversed %}
       <br>
       <div class="card">
+        <!-- Header -->
         <div class="card-body">
           <a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;">
-            <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25"
-              class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+            <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
           </a>
           {% if user.is_authenticated and user.username == post.author.username %}
           <div class="btn-group" style="float:right;">
@@ -27,44 +27,46 @@
           {% endif %}
           <hr>
         </div>
+
+        <!-- Image -->
         <a href="/">
           {% if post.image %}
           <img src="{{post.image.url}}" class="card-img-top" alt="...">
           {% else %}
           <img src="{% static 'page/images/thumbnail.jpg' %}" class="card-img-top" alt="...">
           {% endif %}
-          <div class="card-body">
         </a>
-        <hr>
-        <div style="padding-bottom:10px">
-          <a href="/"><img src="{% static 'page/images/lion_like.jpg' %}" alt="..."
-              style="width:40px;height:30px;padding-right:10px"></a>
-          <a href="{% url 'post_detail' post.id %}#comment"><img src="{% static 'page/images/lion_comment.jpg' %}"
-              alt="..." style="width:30px;height:30px;"></a>
+
+        <!-- Post -->
+        <div class="card-body">
+          <hr>
+          <div style="padding-bottom:10px">
+            <a href="/"><img src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px"></a>
+            <a href="{% url 'post_detail' post.id %}#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..." style="width:30px;height:30px;"></a>
+          </div>
+          <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
+            <!--post summary-->
+            {% if post.content|length > 100 %}
+            <span id="summary">{{post.summary}}</span>
+            <span id="content" style="display:none">{{post.content}}</span>
+            <a href="javascript:more()" id="more" style="color:gray;">...더보기</a>
+            {% else %}
+            {{post.content}}
+            {% endif %}
+          </p>
+          <p><small class="card-text" style="color:gray;">{{post.pub_date}}</small></p>
+          {% for comment in post.comments.all %}
+          <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
+          <br>
+          {% empty %}
+          <a href="{% url 'post_detail' post.id %}#comment"><label style="text-decoration: none;color:gray;">아직 댓글이 없습니다</label></a>
+          {% endfor %}
         </div>
-        <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
-          <!--post summary-->
-          {% if post.content|length > 100 %}
-          <span id="summary">{{post.summary}}</span>
-          <span id="content" style="display:none">{{post.content}}</span>
-          <a href="javascript:more()" id="more" style="color:gray;">...더보기</a>
-          {% else %}
-          {{post.content}}
-          {% endif %}
-        </p>
-        <p><small class="card-text" style="color:gray;">{{post.pub_date}}</small></p>
-        {% for comment in post.comments.all %}
-        <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
-        <br>
-        {% empty %}
-        <a href="{% url 'post_detail' post.id %}#comment"><label style="text-decoration: none;color:gray;">아직 댓글이 없습니다</label></a>
-        {% endfor %}
       </div>
+      <br>
+      {% endfor %}
     </div>
-    <br>
-    {% endfor %}
   </div>
-</div>
 </div>
 
 <!--Expand Content JS-->
