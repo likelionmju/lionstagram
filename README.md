@@ -8,3 +8,5 @@ MJU(Seoul) x Likelion Django Lionstagram
 ---
 
 명지대학교(서울) 멋쟁이사자처럼 Django 교안 프로젝트 세 번째 교안입니다.
+
+[Demo] [https://lionstagram.herokuapp.com](https://lionstagram.herokuapp.com)
