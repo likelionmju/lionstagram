@@ -47,9 +47,9 @@
           <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
             <!--post summary-->
             {% if post.content|length > 100 %}
-            <span id="summary">{{post.summary}}</span>
-            <span id="content" style="display:none">{{post.content}}</span>
-            <a href="javascript:more()" id="more" style="color:gray;">...더보기</a>
+            <span id="summary{{post.id}}">{{post.summary}}</span>
+            <span id="content{{post.id}}" style="display:none">{{post.content}}</span>
+            <a href="javascript:more({{post.id}})" id="more{{post.id}}" style="color:gray;">...더보기</a>
             {% else %}
             {{post.content}}
             {% endif %}
@@ -71,10 +71,10 @@
 
 <!--Expand Content JS-->
 <script>
-  function more() {
-    var content = document.getElementById('content').textContent;
-    document.getElementById('summary').innerHTML = content; // summary change to content
-    document.getElementById('more').style.display = "none"; // more button hide
+  function more(postNum) {
+    var content = document.getElementById('content' + postNum).textContent;
+    document.getElementById('summary' + postNum).innerHTML = content; // summary change to content
+    document.getElementById('more' + postNum).style.display = "none"; // more button hide
   }
 </script>
 
