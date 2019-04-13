@@ -41,9 +41,10 @@
         <div class="card-body">
           <hr>
           <div style="padding-bottom:10px">
-            <a href="/"><img src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px"></a>
+            <a href="{%url 'like' post.id%}"><img src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px"></a>
             <a href="{% url 'post_detail' post.id %}#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..." style="width:30px;height:30px;"></a>
           </div>
+          <p class="card-text" id="count{{post.id}}"><strong>좋아요 {{post.total_likes}}개</strong></p>
           <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
             <!--post summary-->
             {% if post.content|length > 100 %}

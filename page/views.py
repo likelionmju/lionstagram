@@ -2,7 +2,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Post
 
-# Create your views here.
+# import Json
+try:
+    from django.utils import simplejson as json
+except ImportError:
+    import json
+
 def home(request):
     posts = Post.objects
     return render(request, 'home.html', {'posts':posts})
@@ -52,4 +57,14 @@ def post_edit(request, post_id):
         else:
             return redirect('home')
         
-    
+# 좋아요 구현
+def like(request, post_id):
+    post=get_object_or_404(Post, pk=post_id) # 해당 포스트
+    user=request.user
+
+    if post.likes.filter(id=user.id).exists(): 
+        post.likes.remove(user)
+    else:
+        post.likes.add(user)
+        
+    return redirect('home')
