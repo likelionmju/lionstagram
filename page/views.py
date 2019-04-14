@@ -76,6 +76,6 @@ def post_like(request):
         post_like.delete()
 
     # Like count
-    likes_count = Like.objects.filter(user=request.user, post=post, post_id=pk).count()
+    likes_count = Like.objects.filter(post=post, post_id=pk).count()
     content = {'likes_count': likes_count} 
     return HttpResponse(json.dumps(content))
