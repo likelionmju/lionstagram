@@ -41,10 +41,11 @@
         <div class="card-body">
           <hr>
           <div style="padding-bottom:10px">
-            <a href="{%url 'like' post.id%}"><img src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px"></a>
+            <button type="button" class="like" name="{{post.id}}" style="background: transparent; border: 0; outline: 0">
+            <img src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px"></button>
             <a href="{% url 'post_detail' post.id %}#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..." style="width:30px;height:30px;"></a>
           </div>
-          <p class="card-text" id="count{{post.id}}"><strong>좋아요 {{post.total_likes}}개</strong></p>
+          <p class="card-text" id="count{{post.id}}"><strong>좋아요 {{post.likes_count}}개</strong></p>
           <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
             <!--post summary-->
             {% if post.content|length > 100 %}
@@ -79,4 +80,27 @@
   }
 </script>
 
+<!--Likes ajax-->
+<script>
+$('.like').click(function(){
+  var pk = $(this).attr('name')
+  $.ajax({
+      type: "POST", // POST로 통신 
+      url: "{% url 'post_like' %}",
+      data: {
+        'pk': pk, 
+        'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+      dataType: "json", 
+      // {'likes_count': post.like_count}
+      success: function(response){
+        $("#count"+pk).html("<strong>좋아요 "+response.likes_count+"개</strong>");
+      },
+      error:function(){
+        alert("로그인이 필요합니다.")
+        window.location.replace("/account/login/")
+      },
+  });
+})
+</script>
 {% endblock %}
