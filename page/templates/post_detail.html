@@ -10,8 +10,7 @@
       <div class="card">
         <div class="card-body">
           <a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;">
-            <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25"
-              class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+            <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
           </a>
           {% if user.is_authenticated and user.username == post.author.username %}
           <div class="btn-group" style="float:right;">
@@ -35,16 +34,12 @@
         <div class="card-body">
           <hr>
           <div style="padding-bottom:10px">
-            <button type="button" class="like" name="{{post.id}}"
-              style="background: transparent; border: 0; outline: 0">
-              <img src="{% static 'page/images/lion_like.jpg' %}" alt="..."
-                style="width:40px;height:30px;padding-right:10px"></button>
-            <a href="#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..."
-                style="width:30px;height:30px;"></a>
+            <button type="button" class="like" name="{{post.id}}" style="background:transparent;border:0;outline:0;padding:0;">
+              <img src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px"></button>
+            <a href="#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..." style="width:30px;height:30px;"></a>
           </div>
           <p class="card-text" id="count{{post.id}}"><strong>좋아요 {{post.likes_count}}개</strong></p>
-          <p class="card-text"><a href="{% url 'mypage' post.author %}"
-              style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a> {{post.content}}</p>
+          <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a> {{post.content}}</p>
           <small class="card-text" style="color:gray;">{{post.pub_date}}</small>
           <hr>
           <!-- 댓글 입력 폼 -->
@@ -84,25 +79,25 @@
 
 <!--Likes ajax-->
 <script>
-  $('.like').click(function(){
+  $('.like').click(function() {
     var pk = $(this).attr('name')
     $.ajax({
-        type: "POST", // POST로 통신 
-        url: "{% url 'post_like' %}",
-        data: {
-          'pk': pk, 
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-          },
-        dataType: "json", 
-        // {'likes_count': post.like_count}
-        success: function(response){
-          $("#count"+pk).html("<strong>좋아요 "+response.likes_count+"개</strong>");
-        },
-        error:function(){
-          alert("로그인이 필요합니다.")
-          window.location.replace("/account/login/")
-        },
+      type: "POST", // POST로 통신
+      url: "{% url 'post_like' %}",
+      data: {
+        'pk': pk,
+        'csrfmiddlewaretoken': '{{ csrf_token }}'
+      },
+      dataType: "json",
+      // {'likes_count': post.like_count}
+      success: function(response) {
+        $("#count" + pk).html("<strong>좋아요 " + response.likes_count + "개</strong>");
+      },
+      error: function() {
+        alert("로그인이 필요합니다.")
+        window.location.replace("/account/login/")
+      },
     });
   })
-  </script>
+</script>
 {% endblock %}
