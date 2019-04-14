@@ -42,7 +42,12 @@
           <hr>
           <div style="padding-bottom:10px">
             <button type="button" class="like" name="{{post.id}}" style="background:transparent;border:0;outline:0;padding:0;">
-              <img src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px"></button>
+              {% if user in post.likes.all %}
+              <img class="like_img" src="{% static 'page/images/lion_like_red.png' %}" alt="..." style="width:40px;height:30px;padding-right:10px">
+              {% else %}
+              <img class="like_img" src="{% static 'page/images/lion_like.jpg' %}" alt="..." style="width:40px;height:30px;padding-right:10px">
+              {% endif %}
+            </button>
             <a href="{% url 'post_detail' post.id %}#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..." style="width:30px;height:30px;"></a>
           </div>
           <p class="card-text" id="count{{post.id}}"><strong>좋아요 {{post.likes_count}}개</strong></p>
@@ -95,6 +100,15 @@
       // {'likes_count': post.like_count}
       success: function(response) {
         $("#count" + pk).html("<strong>좋아요 " + response.likes_count + "개</strong>");
+
+        // like_img change click event
+        var like_img = $('.like_img').attr('src');
+        if(like_img == "{% static 'page/images/lion_like_red.png' %}"){
+          $('.like_img').attr('src', "{% static 'page/images/lion_like.jpg' %}");
+        }else{
+          $('.like_img').attr('src', "{% static 'page/images/lion_like_red.png' %}");
+        }
+
       },
       error: function() {
         alert("로그인이 필요합니다.")

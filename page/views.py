@@ -11,7 +11,8 @@ from django.views.decorators.http import require_POST
 
 def home(request):
     posts = Post.objects
-    return render(request, 'home.html', {'posts': posts})
+    mylikes = Like.objects.filter(user=request.user)
+    return render(request, 'home.html', {'posts': posts, 'mylikes':mylikes})
 
 
 def post_detail(request, post_id):
