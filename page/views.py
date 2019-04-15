@@ -2,17 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Post, Like
 from django.conf import settings
-from django.http import HttpResponse, JsonResponse
+#Like module import
+from django.http import HttpResponse
 import json
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 
 
 def home(request):
     posts = Post.objects
-    mylikes = Like.objects.filter(user=request.user)
-    return render(request, 'home.html', {'posts': posts, 'mylikes':mylikes})
+    return render(request, 'home.html', {'posts': posts})
 
 
 def post_detail(request, post_id):
