@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6 center-align">
       <br>
       <div class="card">
+        <!-- Header -->
         <div class="card-body">
           <a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;">
             <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
@@ -25,12 +25,17 @@
           {% endif %}
           <hr>
         </div>
-        <img src="
-        {% if post.image %}
-        {{post.image.url}}
-        {% else %}
-        {% static 'page/images/thumbnail.jpg' %}
-        {% endif %}" class="card-img-top" alt="...">
+
+        <!-- Image -->
+        <a href="/">
+          {% if post.image %}
+          <img src="{{post.image.url}}" class="card-img-top" alt="...">
+          {% else %}
+          <img src="{% static 'page/images/thumbnail.jpg' %}" class="card-img-top" alt="...">
+          {% endif %}
+        </a>
+
+        <!-- Post -->
         <div class="card-body">
           <hr>
           <div style="padding-bottom:10px">
