@@ -29,7 +29,7 @@
         </div>
 
         <!-- Image -->
-        <a href="/">
+        <a class="image" name="{{post.id}}">
           {% if post.image %}
           <img src="{{post.image.url}}" class="card-img-top" alt="...">
           {% else %}
@@ -87,7 +87,8 @@
 
 <!--Likes ajax-->
 <script>
-  $('.like').click(function() {
+  // Click Event Function
+  var event = function() {
     var pk = $(this).attr('name')
     $.ajax({
       type: "POST", // POST로 통신
@@ -100,7 +101,6 @@
       // {'likes_count': post.like_count}
       success: function(response) {
         $("#count" + pk).html("<strong>좋아요 " + response.likes_count + "개</strong>");
-
         // like_img change click event
         var like_img = $('.like_img'+pk).attr('src');
         if(like_img == "{% static 'page/images/lion_like_red.png' %}"){
@@ -108,13 +108,15 @@
         }else{
           $('.like_img'+pk).attr('src', "{% static 'page/images/lion_like_red.png' %}");
         }
-
       },
       error: function() {
-        alert("로그인이 필요합니다.")
-        window.location.replace("/account/login/")
+        alert("로그인이 필요합니다.");
+        window.location.replace("/account/login/");
       },
     });
-  })
+  }
+
+  $('.like').click(event); // like button click
+  $('.image').dblclick(event); // image dblclick
 </script>
 {% endblock %}
