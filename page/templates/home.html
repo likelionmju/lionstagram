@@ -63,7 +63,7 @@
           </p>
           <p><small class="card-text" style="color:gray;">{{post.pub_date}}</small></p>
           {% for comment in post.comments.all %}
-          <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
+          <label><strong>{{comment.author}}</strong><a href="{% url 'post_detail' post.id %}#comment" style="text-decoration: none; color: black;"> {{comment.content}}</a></label>
           <br>
           {% empty %}
           <a href="{% url 'post_detail' post.id %}#comment"><label style="text-decoration: none;color:gray;">아직 댓글이 없습니다</label></a>
