@@ -62,7 +62,9 @@
             {% endif %}
           </p>
           <p><small class="card-text" style="color:gray;">{{post.pub_date}}</small></p>
-          {% for comment in post.comments.all %}
+
+          <!--apply slice filter to comment list-->
+          {% for comment in post.comments.all|slice:":2" %} 
           <label><strong>{{comment.author}}</strong><a href="{% url 'post_detail' post.id %}#comment" style="text-decoration: none; color: black;"> {{comment.content}}</a></label>
           <br>
           {% empty %}
