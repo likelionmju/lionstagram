@@ -65,7 +65,7 @@
 
           <!--apply slice filter to comment list-->
           {% for comment in post.comments.all|slice:":2" %} 
-          <label><a href="{% url 'userpage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
+          <label><a href="{% url 'userpage' comment.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
             <a href="{% url 'post_detail' post.id %}#comment" style="text-decoration: none; color: black;"> {{comment.content}}</a></label>
           <br>
           {% empty %}
