@@ -72,7 +72,7 @@
           <br>
           <!-- 댓글 -->
           {% for comment in post.comments.all %}
-          <label><a href="{% url 'userpage' comment.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
+          <label><a href="{% url 'userpage' comment.author %}" style="text-decoration: none; color: black;"><strong>{{comment.author}}</strong></a>
             {{comment.content}}</label>
           <a class="btn-sm float-right" href="{% url 'comment_delete' post.id comment.id %}">
             <i class="fas fa-minus"></i>
