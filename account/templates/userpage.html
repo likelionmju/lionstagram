@@ -10,7 +10,7 @@
       <img src="{% static 'page/images/lion_profile.jpg' %}" width="150" height="150" alt="">
     </div>
     <div class="col-md-8">
-      <a href="{% url 'mypage' user %}" style="text-decoration: none; color: black;"><h2>{{user}}</h2></a>
+      <a href="{% url 'userpage' user %}" style="text-decoration: none; color: black;"><h2>{{user}}</h2></a>
       <p>게시물 <strong>{{posts.count}}</strong></p>
     </div>
   </div>

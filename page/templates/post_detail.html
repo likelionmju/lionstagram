@@ -9,7 +9,7 @@
       <div class="card">
         <!-- Header -->
         <div class="card-body">
-          <a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;">
+          <a href="{% url 'userpage' post.author %}" style="text-decoration: none; color: black;">
             <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
           </a>
           {% if user.is_authenticated and user.username == post.author.username %}
@@ -49,7 +49,7 @@
             <a href="#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..." style="width:30px;height:30px;"></a>
           </div>
           <p class="card-text" id="count{{post.id}}"><strong>좋아요 {{post.likes_count}}개</strong></p>
-          <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a> {{post.content}}</p>
+          <p class="card-text"><a href="{% url 'userpage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a> {{post.content}}</p>
           <small class="card-text" style="color:gray;">{{post.pub_date}}</small>
           <hr>
           <!-- 댓글 입력 폼 -->
@@ -72,7 +72,8 @@
           <br>
           <!-- 댓글 -->
           {% for comment in post.comments.all %}
-          <label><strong>{{comment.author}}</strong> {{comment.content}}</label>
+          <label><a href="{% url 'userpage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
+            {{comment.content}}</label>
           <a class="btn-sm float-right" href="{% url 'comment_delete' post.id comment.id %}">
             <i class="fas fa-minus"></i>
           </a>

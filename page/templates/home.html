@@ -11,7 +11,7 @@
       <div class="card">
         <!-- Header -->
         <div class="card-body">
-          <a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;">
+          <a href="{% url 'userpage' post.author %}" style="text-decoration: none; color: black;">
             <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25" height="25" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
           </a>
           {% if user.is_authenticated and user.username == post.author.username %}
@@ -51,7 +51,7 @@
             <a href="{% url 'post_detail' post.id %}#comment"><img src="{% static 'page/images/lion_comment.jpg' %}" alt="..." style="width:30px;height:30px;"></a>
           </div>
           <p class="card-text" id="count{{post.id}}"><strong>좋아요 {{post.likes_count}}개</strong></p>
-          <p class="card-text"><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
+          <p class="card-text"><a href="{% url 'userpage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
             <!--post summary-->
             {% if post.content|length > 100 %}
             <span id="summary{{post.id}}">{{post.summary}}</span>
@@ -65,7 +65,7 @@
 
           <!--apply slice filter to comment list-->
           {% for comment in post.comments.all|slice:":2" %} 
-          <label><a href="{% url 'mypage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
+          <label><a href="{% url 'userpage' post.author %}" style="text-decoration: none; color: black;"><strong>{{post.author}}</strong></a>
             <a href="{% url 'post_detail' post.id %}#comment" style="text-decoration: none; color: black;"> {{comment.content}}</a></label>
           <br>
           {% empty %}

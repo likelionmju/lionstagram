@@ -33,9 +33,9 @@ def logout(request):
     auth.logout(request)
     return redirect('home')
 
-def mypage(request, author_id):
+def userpage(request, author_id):
     # 유저 객체를 user에 저장
     user = User.objects.get(username=author_id)
     # 해당 유저의 포스트만 불러오기
     posts = Post.objects.filter(author=user)
-    return render(request, 'mypage.html', {'posts':posts, 'user':user})
+    return render(request, 'userpage.html', {'posts':posts, 'user':user})
