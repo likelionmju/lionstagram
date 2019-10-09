@@ -48,11 +48,11 @@ def logout(request):
 
 def userpage(request, author_id):
     # 유저 객체를 user에 저장
-    user = User.objects.get(username=author_id)
+    account = User.objects.get(username=author_id)
     # 해당 유저의 포스트만 불러오기
-    posts = Post.objects.filter(author=user)
-    profile = Profile.objects.filter(user=user)
-    return render(request, 'userpage.html', {'posts':posts, 'user':user, 'profile':profile})
+    posts = Post.objects.filter(author=account)
+    profile = Profile.objects.filter(user=account)
+    return render(request, 'userpage.html', {'posts':posts, 'account':account, 'profile':profile})
 
 
 def change_profile(request):
