@@ -43,7 +43,8 @@ def userpage(request, author_id):
     user = User.objects.get(username=author_id)
     # 해당 유저의 포스트만 불러오기
     posts = Post.objects.filter(author=user)
-    return render(request, 'userpage.html', {'posts':posts, 'user':user})
+    profile = Profile.objects.filter(user=user)
+    return render(request, 'userpage.html', {'posts':posts, 'user':user, 'profile':profile})
 
 
 def change_profile(request):

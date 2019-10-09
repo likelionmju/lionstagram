@@ -7,7 +7,13 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4 text-center" style="padding-bottom:20px;">
-      <img src="{% static 'page/images/lion_profile.jpg' %}" width="150px" height="150px" alt="...">
+      {% for profile in profile.all%}
+        {% if profile.image %}
+        <img alt="User_logo" src="{{profile.image.url}}"  width="150px" height="150px">
+        {% else %}
+        <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="150px" height="150px">
+        {% endif %}
+      {% endfor %}
     </div>
     <div class="col-md-8">
       <a href="{% url 'userpage' user %}" style="text-decoration: none; color: black;">

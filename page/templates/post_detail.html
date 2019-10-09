@@ -10,7 +10,13 @@
         <!-- Header -->
         <div class="card-body">
           <a href="{% url 'userpage' post.author %}" style="text-decoration: none; color: black;">
-            <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25px" height="25px" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+          {% for profile in profile.all %}  
+            {% if profile.image %}
+              <img alt="User_logo" src="{{profile.image.url}}" width="25px" height="25px" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+            {% else %}
+              <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25px" height="25px" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
+            {% endif %}
+          {% endfor %}
           </a>
           {% if user.is_authenticated and user.username == post.author.username %}
           <div class="btn-group" style="float:right;">

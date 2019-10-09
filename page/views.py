@@ -7,16 +7,19 @@ from django.http import HttpResponse
 import json
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from account.models import Profile
 
 
 def home(request):
     posts = Post.objects
-    return render(request, 'home.html', {'posts': posts})
+    profiles = Profile.objects
+    return render(request, 'home.html', {'posts': posts, 'profiles':profiles})
 
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'post_detail.html', {'post': post})
+    profile = Profile.objects.filter(user=post.author)
+    return render(request, 'post_detail.html', {'post': post, 'profile':profile})
 
 
 def post_new(request):
