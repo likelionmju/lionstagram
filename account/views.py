@@ -5,6 +5,10 @@ from django.contrib import auth
 from page.models import Post
 from account.models import Profile
 
+from PIL import Image, ImageOps, ImageDraw
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -43,10 +47,38 @@ def userpage(request, author_id):
 
 
 def change_profile(request):
+    # if profile_image exist, delete this image 
+    if Profile.objects.filter(user=request.user):
+        Profile.objects.filter(user=request.user).delete()
+
     profile = Profile()
     profile.user = request.user
-    # image 파일이 있으면 post 객체에 저장
+    # save profile_image
     if 'image' in request.FILES:
-        profile.image = request.FILES['image']
+        im = Image.open(request.FILES['image'])
+        im = im.resize((1920, 1920));
+        bigsize = (im.size[0] * 3, im.size[1] * 3)
+        mask = Image.new('L', bigsize, 0)
+        draw = ImageDraw.Draw(mask) 
+        draw.ellipse((0, 0) + bigsize, fill=255)
+        mask = mask.resize(im.size, Image.ANTIALIAS)
+        im.putalpha(mask)
+
+        output = ImageOps.fit(im, mask.size, centering=(0.5, 0.5))
+        output.putalpha(mask)
+        
+        buffer = BytesIO()
+        output.save(buffer, format='png')
+
+        file = InMemoryUploadedFile(
+            buffer,
+            '{}'.format(request.FILES['image']),
+            '{}'.format(request.FILES['image']),
+            'image/png',
+            buffer.tell(),
+            None,
+        )
+
+        profile.image = file
     profile.save()
     return redirect('/account/userpage/'+str(profile.user))
