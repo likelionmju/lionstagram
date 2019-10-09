@@ -10,8 +10,6 @@
       {% for profile in profile.all%}
         {% if profile.image %}
         <img alt="User_logo" src="{{profile.image.url}}"  width="150px" height="150px">
-        {% else %}
-        <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="150px" height="150px">
         {% endif %}
       {% endfor %}
     </div>

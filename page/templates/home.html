@@ -17,8 +17,6 @@
             {% for profile in profiles.all|in_profiles:post.author %}
             {% if profile.image %}
               <img alt="User_logo" src="{{profile.image.url}}" width="25px" height="25px" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
-            {% else %}
-              <img alt="Lionstagram_logo" src="{% static 'page/images/lion_profile.jpg' %}" width="25px" height="25px" class="d-inline-block align-top"><strong style="padding-left:10px;">{{post.author}}</strong>
             {% endif %}
             {% endfor %}
           </a>
