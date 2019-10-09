@@ -8,6 +8,8 @@ from account.models import Profile
 from PIL import Image, ImageOps, ImageDraw
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Create your views here.
 def register(request):
@@ -17,6 +19,10 @@ def register(request):
                 request.POST['id'], password=request.POST['pw']
             )
             auth.login(request, user)
+            profile = Profile()
+            profile.user = request.user
+            profile.image = os.path.join(BASE_DIR, '/default/lion_profile.jpg')
+            profile.save()
             return redirect('home')
     else:
         return render(request, 'register.html')
