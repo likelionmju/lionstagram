@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import auth
 from page.models import Post
+from account.models import Profile
 
 # Create your views here.
 def register(request):
@@ -39,3 +40,13 @@ def userpage(request, author_id):
     # 해당 유저의 포스트만 불러오기
     posts = Post.objects.filter(author=user)
     return render(request, 'userpage.html', {'posts':posts, 'user':user})
+
+
+def change_profile(request):
+    profile = Profile()
+    profile.user = request.user
+    # image 파일이 있으면 post 객체에 저장
+    if 'image' in request.FILES:
+        profile.image = request.FILES['image']
+    profile.save()
+    return redirect('/account/userpage/'+str(profile.user))
