@@ -17,8 +17,7 @@
       <a href="{% url 'userpage' user %}" style="text-decoration: none; color: black;">
         <h2>{{user}}</h2>
       </a>
-      <p>게시물 <strong>{{posts.count}}</strong><label data-toggle="modal" data-target="#myModal"
-          style="margin-left:1em;color: grey;">프로필 사진 바꾸기</label></p>
+      <p>게시물 <strong>{{posts.count}}</strong>{% if user.is_authenticated and user.username == user %}<label data-toggle="modal" data-target="#myModal" style="margin-left:1em;color: grey;">프로필 사진 바꾸기</label>{% endif %}</p>
 
       <div class="modal" id="myModal">
         <div class="modal-dialog">
