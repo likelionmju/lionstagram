@@ -5,13 +5,15 @@ from django.contrib import auth
 from page.models import Post
 from account.models import Profile
 
+# make circle image
 from PIL import Image, ImageOps, ImageDraw
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+
+# default image path
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Create your views here.
 def register(request):
     if request.method == 'POST':
         if request.POST['pw'] == request.POST['confirm-pw']:
