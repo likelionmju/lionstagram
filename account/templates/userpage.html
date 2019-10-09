@@ -32,8 +32,7 @@
               <div class="modal-body">
                 {% for profile in profile.all%}
                   {% if profile.image %}
-                  <img alt="User_logo" src="{{profile.image.url}}"  width="300px" height=""
-                  style="display: block; margin: 0px auto;">
+                  <img alt="User_logo" src="{{profile.image.url}}"  width="300px" height="300px" style="display: block; margin: 0px auto;object-fit: cover;object-position: top;border-radius: 50%;" id="render-img">
                   {% endif %}
                 {% endfor %}
                 <div class="custom-file" style="margin-top:1em;">
@@ -74,6 +73,20 @@
   $(".custom-file-input").on("change", function () {
     var fileName = $(this).val().split("\\").pop();
     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              $('#render-img').attr('src', e.target.result);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+  }
+
+  $("#image").change(function() {
+      readURL(this);
   });
 </script>
 
