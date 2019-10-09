@@ -30,8 +30,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
               <div class="modal-body">
-                <img src="{% static 'page/images/lion_profile.jpg' %}" width="300px" height="300px" alt="..."
+                {% for profile in profile.all%}
+                  {% if profile.image %}
+                  <img alt="User_logo" src="{{profile.image.url}}"  width="300px" height=""
                   style="display: block; margin: 0px auto;">
+                  {% endif %}
+                {% endfor %}
                 <div class="custom-file" style="margin-top:1em;">
                   <input type="file" class="custom-file-input" name="image" id="image">
                   <label class="custom-file-label" for="image" style="color: grey;">Choose file</label>
