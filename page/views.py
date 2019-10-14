@@ -9,6 +9,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from account.models import Profile
 
+from PIL import Image, ExifTags
+from PIL.ExifTags import TAGS
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 def home(request):
     posts = Post.objects
@@ -30,14 +34,40 @@ def post_new(request):
         post.content = request.POST['content']
         # image 파일이 있으면 post 객체에 저장
         if 'image' in request.FILES:
-            post.image = request.FILES['image']
+            image = Image.open(request.FILES['image'])
+            exif = image._getexif()
+            orientation_key = 274 # cf ExifTags
+            
+            if exif and orientation_key in exif:
+                orientation = exif[orientation_key]
+
+                rotate_values = {
+                    3: Image.ROTATE_180,
+                    6: Image.ROTATE_270,
+                    8: Image.ROTATE_90
+                }
+
+                if orientation in rotate_values:
+                    image = image.transpose(rotate_values[orientation])
+
+                buffer = BytesIO()
+                image.save(buffer, format='png')
+
+                file = InMemoryUploadedFile(
+                    buffer,
+                    '{}'.format(request.FILES['image']),
+                    '{}'.format(request.FILES['image']),
+                    'image/png',
+                    buffer.tell(),
+                    None,
+                )
+            post.image = file
         post.pub_date = timezone.datetime.now()
         post.save()
         return redirect('/post/'+str(post.id))
     # 작성 폼
     else:
         return render(request, 'post_new.html')
-
 
 def post_delete(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
