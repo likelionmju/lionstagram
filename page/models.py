@@ -1,11 +1,20 @@
+from django.conf import settings
 from django.db import models
 # 유저 정보 import
-from django.conf import settings
 
 # Create your models here.
+
+
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='likes', through='Like')
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+    )
+    likes = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        related_name='likes',
+        through='Like',
+    )
     pub_date = models.DateTimeField('publish')
     image = models.ImageField(upload_to='images/', blank=True)
     content = models.TextField()
@@ -20,6 +29,10 @@ class Post(models.Model):
     def likes_count(self):
         return self.likes.count()
 
+
 class Like(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

@@ -1,29 +1,33 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
-from .models import Post, Like
-from django.conf import settings
-#Like module import
-from django.http import HttpResponse
 import json
+from io import BytesIO
+
 from django.contrib.auth.decorators import login_required
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.utils import timezone
 from django.views.decorators.http import require_POST
+from PIL import Image
+
+from .models import Like
+from .models import Post
 from account.models import Profile
 
-from PIL import Image, ExifTags
-from PIL.ExifTags import TAGS
-from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
 
 def home(request):
     posts = Post.objects
     profiles = Profile.objects
-    return render(request, 'home.html', {'posts': posts, 'profiles':profiles})
+    return render(request, 'home.html', {'posts': posts, 'profiles': profiles})
 
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     profile = Profile.objects.filter(user=post.author)
-    return render(request, 'post_detail.html', {'post': post, 'profile':profile})
+    return render(
+        request, 'post_detail.html', {'post': post, 'profile': profile},
+    )
 
 
 def post_new(request):
@@ -36,15 +40,15 @@ def post_new(request):
         if 'image' in request.FILES:
             image = Image.open(request.FILES['image'])
             exif = image._getexif()
-            orientation_key = 274 # cf ExifTags
-            
+            orientation_key = 274  # cf ExifTags
+
             if exif and orientation_key in exif:
                 orientation = exif[orientation_key]
 
                 rotate_values = {
                     3: Image.ROTATE_180,
                     6: Image.ROTATE_270,
-                    8: Image.ROTATE_90
+                    8: Image.ROTATE_90,
                 }
 
                 if orientation in rotate_values:
@@ -68,6 +72,7 @@ def post_new(request):
     # 작성 폼
     else:
         return render(request, 'post_new.html')
+
 
 def post_delete(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
@@ -96,6 +101,8 @@ def post_edit(request, post_id):
             return redirect('home')
 
 # 좋아요 구현
+
+
 @login_required
 @require_POST
 def post_like(request):
@@ -103,12 +110,14 @@ def post_like(request):
     post = get_object_or_404(Post, pk=pk)  # 해당 포스트
 
     # Like create
-    post_like, post_like_created = Like.objects.get_or_create(user=request.user, post=post)
+    post_like, post_like_created = Like.objects.get_or_create(
+        user=request.user, post=post,
+    )
 
     if not post_like_created:
         post_like.delete()
 
     # Like count
     likes_count = Like.objects.filter(post=post, post_id=pk).count()
-    content = {'likes_count': likes_count} 
+    content = {'likes_count': likes_count}
     return HttpResponse(json.dumps(content))
