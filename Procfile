@@ -1,1 +1,1 @@
-web: gunicorn thirdproject.wsgi --log-file -
+web: gunicorn lionstagram.wsgi --log-file -
